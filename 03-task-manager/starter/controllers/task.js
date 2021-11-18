@@ -24,7 +24,7 @@ const getTasks = asyncWrapper(async (req, res, next) => {
   res.status(200).json({ task });
 });
 
-const deleteTasks = asyncWrapper(async (req, res,next) => {
+const deleteTasks = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params;
   const task = await Task.findOneAndDelete({ _id: taskID });
   if (!task) {
@@ -33,7 +33,7 @@ const deleteTasks = asyncWrapper(async (req, res,next) => {
   res.status(200).json({ task });
 });
 
-const updateTasks = asyncWrapper(async (req, res,next) => {
+const updateTasks = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params;
 
   const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
