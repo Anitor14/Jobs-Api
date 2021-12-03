@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config(); // getting our MONGO_URI from .env 
 //async errors
 require("express-async-errors");
 const express = require("express");

@@ -5,8 +5,8 @@ const connectDB = (url) => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true, // we use all these to eliminate deprecations
   })
 }
 
-module.exports = connectDB
+module.exports = connectDB  // exporting connectDB.
