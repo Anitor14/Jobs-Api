@@ -10,21 +10,31 @@ const login = async (req, res) => {
   // mongoose required validation.
   // Joi
   // check in the controller.
-
+  //checking if their is a username and password present.
   if (!username || !password) {
     throw new CustomAPIError("please provide email and password", 400);
   }
 
-  const token = jwt.sign({});
+  //Just for demo, normally provided by the database.
+  const id = new Date().getDate();
 
-  console.log(username, password);
-  res.send("Fake Login/Register/Signup Route");
+  // Try to keep the payload small for better experience for user.
+  // Just for demo, in production use long, complex and unguessable string values.
+  const token = jwt.sign({ id, username }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+
+  // console.log(username, password);
+  // res.send("Fake Login/Register/Signup Route");
+  res.status(200).json({ msg: "user created", token });
 };
 
 const dashboard = async (req, res) => {
+  console.log(req.user);
   const luckyNumber = Math.floor(Math.random() * 100);
+
   res.status(200).json({
-    msg: `Hello John Doe`,
+    msg: `Hello ${req.user.username}`,
     secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
   });
 };

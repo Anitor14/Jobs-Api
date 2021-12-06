@@ -7,8 +7,8 @@ const btnDOM = document.querySelector('#data')
 const tokenDOM = document.querySelector('.token')
 
 formDOM.addEventListener('submit', async (e) => {
-  formAlertDOM.classList.remove('text-success')
-  tokenDOM.classList.remove('text-success')
+  formAlertDOM.classList.remove('text-success') 
+  tokenDOM.classList.remove('text-success')// this removes the blue color from the button
 
   e.preventDefault()
   const username = usernameInputDOM.value
