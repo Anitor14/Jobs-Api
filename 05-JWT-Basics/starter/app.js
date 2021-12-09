@@ -10,8 +10,8 @@ const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
 // middleware
-app.use(express.static("./public"));
-app.use(express.json());
+app.use(express.static("./public")); //enables access to the public directory.
+app.use(express.json());  
 
 app.use("/api/v1", mainRouter);
   

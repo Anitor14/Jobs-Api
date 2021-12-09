@@ -4,7 +4,7 @@
 
 //Setup authentication so only request with JWT can access the dashboard.
 const jwt = require("jsonwebtoken");
-const CustomAPIError = require("../errors/custom-error");
+const { BadRequestError } = require("../errors/");
 const login = async (req, res) => {
   const { username, password } = req.body;
   // mongoose required validation.
@@ -12,7 +12,7 @@ const login = async (req, res) => {
   // check in the controller.
   //checking if their is a username and password present.
   if (!username || !password) {
-    throw new CustomAPIError("please provide email and password", 400);
+    throw new BadRequestError("please provide email and password");
   }
 
   //Just for demo, normally provided by the database.
