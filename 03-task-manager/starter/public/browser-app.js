@@ -7,7 +7,7 @@ const formAlertDOM = document.querySelector(".form-alert");
 // Load tasks from /api/tasks
 const showTasks = async () => {
   loadingDOM.style.visibility = "visible";
-  try {
+  try { 
     const {
       data: { tasks },
     } = await axios.get("/api/v1/tasks");
@@ -43,7 +43,7 @@ const showTasks = async () => {
     tasksDOM.innerHTML =
       '<h5 class="empty-list">There was an error, please try later....</h5>';
   }
-  loadingDOM.style.visibility = "hidden";
+  loadingDOM.style.visibility = "hidden"; 
 };
 
 showTasks();
