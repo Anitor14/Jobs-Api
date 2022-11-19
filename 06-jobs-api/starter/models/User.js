@@ -25,15 +25,18 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+// we are using the mongoose middleware pre
+UserSchema.pre("save", async function () {
+  const salt = await bcrypt.genSalt(10); // generating a random byte.
+  this.password = await bcrypt.hash(this.password, salt); // hashing the password takes in the password and the generated salt.
+  // goes to the next middleware function.
 });
+
+// we are creating the jwt using the mongoose instance methods.
 
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
-    { UserId: this._id, name: this.name },
+    { userId: this._id, name: this.name }, // this is the payload which constitutes of the userID and the username.
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_LIFETIME,
@@ -41,4 +44,9 @@ UserSchema.methods.createJWT = function () {
   );
 };
 
+//using the mongoose instance methods to create a function to compare the password from the req.body and this.password.
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password);
+  return isMatch;
+};
 module.exports = mongoose.model("User", UserSchema);
