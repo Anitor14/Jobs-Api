@@ -25,6 +25,10 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     )} field, please choose another value.`;
     customError.statusCode = 400;
   }
+  if (err.name === "CastError") {
+    customError.msg = `No item found with id: ${err.value}`;
+    customError.statusCode = 400;
+  }
   // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };
